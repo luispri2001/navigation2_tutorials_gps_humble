@@ -26,37 +26,36 @@ from nav2_common.launch import RewrittenYaml
 
 def generate_launch_description():
     # Get the launch directory
-    bringup_dir = get_package_share_directory('nav2_bringup')
-    gps_wpf_dir = get_package_share_directory(
-        "nav2_gps_waypoint_follower_demo")
-    launch_dir = os.path.join(gps_wpf_dir, 'launch')
+    bringup_dir = get_package_share_directory("nav2_bringup")
+    gps_wpf_dir = get_package_share_directory("nav2_gps_waypoint_follower_demo")
+    launch_dir = os.path.join(gps_wpf_dir, "launch")
     params_dir = os.path.join(gps_wpf_dir, "config")
-    nav2_params = os.path.join(params_dir, "nav2_no_map_params.yaml")
+    nav2_params = os.path.join(params_dir, "test_nav2_no_map_params.yaml")
     configured_params = RewrittenYaml(
         source_file=nav2_params, root_key="", param_rewrites="", convert_types=True
     )
 
-    use_rviz = LaunchConfiguration('use_rviz')
-    use_mapviz = LaunchConfiguration('use_mapviz')
+    use_rviz = LaunchConfiguration("use_rviz")
+    use_mapviz = LaunchConfiguration("use_mapviz")
 
     declare_use_rviz_cmd = DeclareLaunchArgument(
-        'use_rviz',
-        default_value='False',
-        description='Whether to start RVIZ')
+        "use_rviz", default_value="False", description="Whether to start RVIZ"
+    )
 
     declare_use_mapviz_cmd = DeclareLaunchArgument(
-        'use_mapviz',
-        default_value='False',
-        description='Whether to start mapviz')
+        "use_mapviz", default_value="False", description="Whether to start mapviz"
+    )
 
     gazebo_cmd = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
-            os.path.join(launch_dir, 'gazebo_gps_world.launch.py'))
+            os.path.join(launch_dir, "gazebo_gps_world.launch.py")
+        )
     )
 
     robot_localization_cmd = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
-            os.path.join(launch_dir, 'dual_ekf_navsat.launch.py'))
+            os.path.join(launch_dir, "dual_ekf_navsat.launch.py")
+        )
     )
 
     navigation2_cmd = IncludeLaunchDescription(
@@ -72,21 +71,21 @@ def generate_launch_description():
 
     rviz_cmd = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
-            os.path.join(bringup_dir, "launch", 'rviz_launch.py')),
-        condition=IfCondition(use_rviz)
+            os.path.join(bringup_dir, "launch", "rviz_launch.py")
+        ),
+        condition=IfCondition(use_rviz),
     )
 
     mapviz_cmd = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(
-            os.path.join(launch_dir, 'mapviz.launch.py')),
-        condition=IfCondition(use_mapviz)
+        PythonLaunchDescriptionSource(os.path.join(launch_dir, "mapviz.launch.py")),
+        condition=IfCondition(use_mapviz),
     )
 
     # Create the launch description and populate
     ld = LaunchDescription()
 
     # simulator launch
-    ld.add_action(gazebo_cmd)
+    # ld.add_action(gazebo_cmd)
 
     # robot localization launch
     ld.add_action(robot_localization_cmd)
