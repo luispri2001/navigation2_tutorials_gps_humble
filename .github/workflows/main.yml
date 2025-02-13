@@ -34,15 +34,18 @@ jobs:
     - name: Set up workspace and copy repo to src
       run: |
         mkdir -p ~/ros2_ws/src  # Crea el workspace y el directorio src
-        cp -r $GITHUB_WORKSPACE/. ~/ros2_ws/src/  # Copia el contenido del repositorio a src
         
-        # Depuración: Verificar que los archivos fueron copiados correctamente
-        echo "Contenido de ~/ros2_ws/src/"
-        ls -la ~/ros2_ws/src/
+        echo "Verificando contenido de $GITHUB_WORKSPACE antes de copiar"
+        ls -la $GITHUB_WORKSPACE  # Depuración
+
+        cp -r $GITHUB_WORKSPACE/* ~/ros2_ws/src/  # Copia el contenido del repo a src
+        
+        echo "Verificando contenido de ~/ros2_ws/src/ después de copiar"
+        ls -la ~/ros2_ws/src/  # Depuración
 
     - name: Verify src directory before installing dependencies
       run: |
-        if [ ! -d "~/ros2_ws/src" ] || [ -z "$(ls -A ~/ros2_ws/src)" ]; then
+        if [ ! -d "$HOME/ros2_ws/src" ] || [ -z "$(ls -A $HOME/ros2_ws/src)" ]; then
           echo "Error: El directorio src está vacío o no existe."
           exit 1
         fi
