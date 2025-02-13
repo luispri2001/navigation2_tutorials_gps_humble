@@ -21,9 +21,11 @@ jobs:
         run: |
           apt update && apt install -y python3-colcon-common-extensions
           source /opt/ros/humble/setup.bash
+          echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc  # Para que el entorno se configure en futuras sesiones
 
       - name: Build workspace
         run: |
+          source /opt/ros/humble/setup.bash  # Re-abrir el entorno ROS 2
           mkdir -p ~/ros2_ws/src
           cp -r . ~/ros2_ws/src/
           cd ~/ros2_ws
@@ -31,6 +33,7 @@ jobs:
 
       - name: Run tests
         run: |
+          source /opt/ros/humble/setup.bash  # Asegurarse de que ROS 2 esté listo para los tests
           cd ~/ros2_ws
           colcon test --event-handlers console_cohesion+
           colcon test-result --verbose
