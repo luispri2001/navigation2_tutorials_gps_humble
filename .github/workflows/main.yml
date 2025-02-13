@@ -11,7 +11,7 @@ jobs:
     
     steps:
     - name: Check out code
-      uses: actions/checkout@v2  # Clona tu repositorio
+      uses: actions/checkout@v2  # Clona el repositorio en $GITHUB_WORKSPACE
 
     - name: Set up ROS 2 Humble
       run: |
@@ -34,12 +34,23 @@ jobs:
     - name: Set up workspace and copy repo to src
       run: |
         mkdir -p ~/ros2_ws/src  # Crea el workspace y el directorio src
-        cp -r $GITHUB_WORKSPACE/* ~/ros2_ws/src/  # Copia el contenido del repositorio a src
-        cd ~/ros2_ws
+        cp -r $GITHUB_WORKSPACE/. ~/ros2_ws/src/  # Copia el contenido del repositorio a src
+        
+        # Depuración: Verificar que los archivos fueron copiados correctamente
+        echo "Contenido de ~/ros2_ws/src/"
+        ls -la ~/ros2_ws/src/
+
+    - name: Verify src directory before installing dependencies
+      run: |
+        if [ ! -d "~/ros2_ws/src" ] || [ -z "$(ls -A ~/ros2_ws/src)" ]; then
+          echo "Error: El directorio src está vacío o no existe."
+          exit 1
+        fi
 
     - name: Install dependencies with rosdep
       run: |
         source /opt/ros/humble/setup.sh
+        cd ~/ros2_ws
         rosdep install --from-paths src --ignore-src -r -y  # Instala dependencias
 
     - name: Build workspace
