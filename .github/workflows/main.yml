@@ -27,14 +27,14 @@ jobs:
     - name: Fix broken packages and update system
       run: |
         sudo apt update --fix-missing
-        sudo apt install -f  # Repara paquetes rotos
+        sudo apt install -f
         sudo dpkg --configure -a
         sudo apt update && sudo apt upgrade -y
 
     - name: Install required dependencies manually
       run: |
         sudo apt update
-        sudo apt install -y libunwind-dev libgoogle-glog-dev
+        sudo apt install -y libunwind-dev libgoogle-glog-dev ros-humble-ament-cmake
 
     - name: Initialize rosdep
       run: |
@@ -50,12 +50,11 @@ jobs:
         echo "Contenido de ~/ros2_ws/src/"
         ls -la ~/ros2_ws/src/
 
-    - name: Verify src directory before installing dependencies
+    - name: Source ROS 2 environment
       run: |
-        if [ ! -d "$HOME/ros2_ws/src" ] || [ -z "$(ls -A $HOME/ros2_ws/src)" ]; then
-          echo "Error: El directorio src está vacío o no existe."
-          exit 1
-        fi
+        echo "Sourcing ROS 2 Humble"
+        source /opt/ros/humble/setup.sh
+        env | grep ROS  # Verifica que las variables de entorno estén configuradas
 
     - name: Install dependencies with rosdep
       run: |
@@ -66,7 +65,7 @@ jobs:
     - name: Build workspace
       run: |
         cd ~/ros2_ws
-        colcon build --symlink-install
+        colcon build --symlink-install --cmake-args -DCMAKE_VERBOSE_MAKEFILE=ON
 
     - name: Run tests
       run: |
