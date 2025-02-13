@@ -13,19 +13,35 @@ jobs:
     - name: Check out code
       uses: actions/checkout@v2
 
-    - name: Set up ROS 2 Humble
+    - name: Update system and fix dependencies
+      run: |
+        sudo apt update
+        sudo apt --fix-broken install -y
+        sudo apt list --upgradable
+
+    - name: Update ROS sources
       run: |
         sudo apt update
         sudo apt install -y curl gnupg2 lsb-release
-        curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
+        sudo rm -rf /etc/apt/sources.list.d/ros2.list
         sudo sh -c 'echo "deb [arch=amd64] http://packages.ros.org/ros2/ubuntu $(lsb_release -cs) main" > /etc/apt/sources.list.d/ros2.list'
+        curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
         sudo apt update
+
+    - name: Install ROS 2 Humble
+      run: |
         sudo apt install -y ros-humble-desktop python3-colcon-common-extensions python3-rosdep2
 
-    - name: Install missing dependencies
+    - name: Install missing dependencies manually
       run: |
-        sudo apt update
-        sudo apt install -y ros-humble-ament-cmake ros-humble-ament-lint ros-humble-ament-cmake-auto
+        sudo apt install -y \
+          ros-humble-navigation2 \
+          ros-humble-nav2-bringup \
+          ros-humble-nav2-core \
+          ros-humble-nav2-util \
+          ros-humble-nav2-msgs \
+          ros-humble-nav2-common \
+          ros-humble-nav2-behaviors
 
     - name: Initialize rosdep
       run: |
@@ -39,12 +55,6 @@ jobs:
         mkdir -p ~/ros2_ws/src
         cp -r $GITHUB_WORKSPACE/* ~/ros2_ws/src/
         ls -la ~/ros2_ws/src/
-
-    - name: Source ROS 2 environment
-      run: |
-        source /opt/ros/humble/setup.sh
-        echo "CMAKE_PREFIX_PATH: $CMAKE_PREFIX_PATH"
-        env | grep ROS
 
     - name: Install dependencies with rosdep
       run: |
