@@ -24,12 +24,14 @@ colcon build --symlink-install
 Este trabajo ha sido financiado en el marco de los siguientes proyectos de investigación:
 
 ### SELF-AIR Project
-**Supporting Extensive Livestock Farming with the use of Autonomous Intelligent Robots**
 
-![SELF_AIR_logo](SELF_AIR_logo.png)
+Supporting Extensive Livestock Farming with the use of Autonomous Intelligent Robots 
 
-Grant **TED2021-132356B-I00** financiado por **MCIN/AEI/10.13039/501100011033** y por la **European Union NextGenerationEU/PRTR**.
+<img src="https://raw.githubusercontent.com/shepherd-robot/.github/main/profile/robotics_wolf_minimal.png" alt= "SELF_AIR_logo" width="50%" height="50%">
 
-![SELF_AIR_EU](eu_logo.png)
+
+Grant TED2021-132356B-I00 funded by MCIN/AEI/10.13039/501100011033 and by the “European Union NextGenerationEU/PRTR"
+
+![SELF_AIR_EU eu_logo](https://raw.githubusercontent.com/shepherd-robot/.github/main/profile/micin-financiadoUEnextgeneration-prtr-aei.png)
 
 
