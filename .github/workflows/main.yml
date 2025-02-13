@@ -11,7 +11,7 @@ jobs:
     
     steps:
     - name: Check out code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v2  # Clona tu repositorio
 
     - name: Set up ROS 2 Humble
       run: |
@@ -22,7 +22,7 @@ jobs:
         sudo apt update
         sudo apt install -y ros-humble-desktop
         sudo apt install -y python3-colcon-common-extensions
-        sudo apt install -y python3-rosdep2  # Install rosdep
+        sudo apt install -y python3-rosdep2  # Instala rosdep
 
     - name: Initialize rosdep (if not already initialized)
       run: |
@@ -31,10 +31,24 @@ jobs:
         fi
         rosdep update
 
-    - name: Source ROS 2 setup script and install dependencies
+    - name: Set up workspace and copy repo to src
+      run: |
+        mkdir -p ~/ros2_ws/src  # Crea el workspace y el directorio src
+        cp -r $GITHUB_WORKSPACE/* ~/ros2_ws/src/  # Copia el contenido del repositorio a src
+        cd ~/ros2_ws
+
+    - name: Install dependencies with rosdep
       run: |
         source /opt/ros/humble/setup.sh
-        rosdep install --from-paths src --ignore-src -r -y
-      shell: bash
-      env:
-        LANG: en_US.UTF-8
+        rosdep install --from-paths src --ignore-src -r -y  # Instala dependencias
+
+    - name: Build workspace
+      run: |
+        cd ~/ros2_ws
+        colcon build --symlink-install  # Compila el workspace
+
+    - name: Run tests
+      run: |
+        cd ~/ros2_ws
+        colcon test --event-handlers console_cohesion+  # Ejecuta las pruebas
+        colcon test-result --verbose  # Muestra los resultados de las pruebas
