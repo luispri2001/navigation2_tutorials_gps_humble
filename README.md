@@ -2,6 +2,8 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT) [![GitHub release](https://img.shields.io/github/release/luispri2001/navigation2_tutorials_gps_humble.svg)](https://github.com/luispri2001/navigation2_tutorials_gps_humble/releases) [![Code Size](https://img.shields.io/github/languages/code-size/luispri2001/navigation2_tutorials_gps_humble.svg)](https://github.com/luispri2001/navigation2_tutorials_gps_humble) [![Last Commit](https://img.shields.io/github/last-commit/luispri2001/navigation2_tutorials_gps_humble.svg)](https://github.com/luispri2001/navigation2_tutorials_gps_humble/commits/main) [![GitHub issues](https://img.shields.io/github/issues/luispri2001/navigation2_tutorials_gps_humble)](https://github.com/luispri2001/navigation2_tutorials_gps_humble/issues) [![GitHub pull requests](https://img.shields.io/github/issues-pr/luispri2001/navigation2_tutorials_gps_humble)](https://github.com/luispri2001/navigation2_tutorials_gps_humble/pulls) [![Contributors](https://img.shields.io/github/contributors/luispri2001/navigation2_tutorials_gps_humble.svg)](https://github.com/luispri2001/navigation2_tutorials_gps_humble/graphs/contributors)
 
+![Build Status](https://github.com/luispri2001/navigation2_tutorials_gps_humble/actions/workflows/build.yml/badge.svg?branch=main)
+
 This repository is a fork of the original [navigation2_tutorials](https://github.com/ros-planning/navigation2_tutorials) repository, with modifications to ensure compatibility with ROS 2 Humble.
 
 ## Changes and Improvements
