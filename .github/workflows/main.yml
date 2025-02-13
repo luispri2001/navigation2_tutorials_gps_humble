@@ -24,9 +24,11 @@ jobs:
         sudo apt install -y python3-colcon-common-extensions
         sudo apt install -y python3-rosdep2  # Install rosdep
 
-    - name: Initialize rosdep
+    - name: Initialize rosdep (if not already initialized)
       run: |
-        sudo rosdep init
+        if [ ! -f /etc/ros/rosdep/sources.list.d/20-default.list ]; then
+          sudo rosdep init
+        fi
         rosdep update
 
     - name: Source ROS 2 setup script and install dependencies
