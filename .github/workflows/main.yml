@@ -14,18 +14,25 @@ jobs:
     container: ros:humble
 
     steps:
-      # Checkout del código fuente
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # Configurar el entorno de ROS 2 usando setup-ros
       - name: Setup ROS 2 environment
         uses: ros-tooling/setup-ros@v0.7
         with:
           required-ros-distributions: humble
-          # Si deseas agregar más distribuciones o configuraciones adicionales, puedes hacerlo aquí
 
-      # Construir el workspace
+      - name: Install ROS 2 build tools
+        run: |
+          sudo apt update
+          sudo apt install -y ros-humble-ament-cmake
+
+      - name: Install dependencies using rosdep
+        run: |
+          source /opt/ros/humble/setup.bash
+          rosdep update
+          rosdep install --from-paths src --ignore-src -r -y
+
       - name: Build workspace
         run: |
           mkdir -p ~/ros2_ws/src
@@ -33,7 +40,6 @@ jobs:
           cd ~/ros2_ws
           colcon build --symlink-install
 
-      # Ejecutar los tests
       - name: Run tests
         run: |
           cd ~/ros2_ws
