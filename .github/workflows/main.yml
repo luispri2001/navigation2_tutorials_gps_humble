@@ -3,7 +3,7 @@ name: ROS 2 Humble Workflow
 on:
   push:
     branches:
-      - main
+      - humble
 
 jobs:
   build:
