@@ -22,11 +22,16 @@ jobs:
         sudo apt update
         sudo apt install -y ros-humble-desktop
         sudo apt install -y python3-colcon-common-extensions
+        sudo apt install -y python3-rosdep2  # Install rosdep
 
-    - name: Source ROS 2 setup script
+    - name: Initialize rosdep
+      run: |
+        sudo rosdep init
+        rosdep update
+
+    - name: Source ROS 2 setup script and install dependencies
       run: |
         source /opt/ros/humble/setup.sh
-        rosdep update
         rosdep install --from-paths src --ignore-src -r -y
       shell: bash
       env:
