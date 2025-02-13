@@ -11,7 +11,7 @@ jobs:
     
     steps:
     - name: Check out code
-      uses: actions/checkout@v2  # Clona el repositorio en $GITHUB_WORKSPACE
+      uses: actions/checkout@v2
 
     - name: Set up ROS 2 Humble
       run: |
@@ -22,9 +22,21 @@ jobs:
         sudo apt update
         sudo apt install -y ros-humble-desktop
         sudo apt install -y python3-colcon-common-extensions
-        sudo apt install -y python3-rosdep2  # Instala rosdep
+        sudo apt install -y python3-rosdep2
 
-    - name: Initialize rosdep (if not already initialized)
+    - name: Fix broken packages and update system
+      run: |
+        sudo apt update --fix-missing
+        sudo apt install -f  # Repara paquetes rotos
+        sudo dpkg --configure -a
+        sudo apt update && sudo apt upgrade -y
+
+    - name: Install required dependencies manually
+      run: |
+        sudo apt update
+        sudo apt install -y libunwind-dev libgoogle-glog-dev
+
+    - name: Initialize rosdep
       run: |
         if [ ! -f /etc/ros/rosdep/sources.list.d/20-default.list ]; then
           sudo rosdep init
@@ -33,15 +45,10 @@ jobs:
 
     - name: Set up workspace and copy repo to src
       run: |
-        mkdir -p ~/ros2_ws/src  # Crea el workspace y el directorio src
-        
-        echo "Verificando contenido de $GITHUB_WORKSPACE antes de copiar"
-        ls -la $GITHUB_WORKSPACE  # Depuración
-
-        cp -r $GITHUB_WORKSPACE/* ~/ros2_ws/src/  # Copia el contenido del repo a src
-        
-        echo "Verificando contenido de ~/ros2_ws/src/ después de copiar"
-        ls -la ~/ros2_ws/src/  # Depuración
+        mkdir -p ~/ros2_ws/src
+        cp -r $GITHUB_WORKSPACE/* ~/ros2_ws/src/
+        echo "Contenido de ~/ros2_ws/src/"
+        ls -la ~/ros2_ws/src/
 
     - name: Verify src directory before installing dependencies
       run: |
@@ -54,15 +61,15 @@ jobs:
       run: |
         source /opt/ros/humble/setup.sh
         cd ~/ros2_ws
-        rosdep install --from-paths src --ignore-src -r -y  # Instala dependencias
+        rosdep install --from-paths src --ignore-src -r -y --skip-keys="ros-humble-navigation2 ros-humble-nav2-bringup"
 
     - name: Build workspace
       run: |
         cd ~/ros2_ws
-        colcon build --symlink-install  # Compila el workspace
+        colcon build --symlink-install
 
     - name: Run tests
       run: |
         cd ~/ros2_ws
-        colcon test --event-handlers console_cohesion+  # Ejecuta las pruebas
-        colcon test-result --verbose  # Muestra los resultados de las pruebas
+        colcon test --event-handlers console_cohesion+
+        colcon test-result --verbose
