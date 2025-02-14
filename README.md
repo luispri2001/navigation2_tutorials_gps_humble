@@ -2,7 +2,12 @@
 
 [![Code Size](https://img.shields.io/github/languages/code-size/luispri2001/navigation2_tutorials_gps_humble.svg)](https://github.com/luispri2001/navigation2_tutorials_gps_humble) [![Last Commit](https://img.shields.io/github/last-commit/luispri2001/navigation2_tutorials_gps_humble.svg)](https://github.com/luispri2001/navigation2_tutorials_gps_humble/commits/main) [![GitHub issues](https://img.shields.io/github/issues/luispri2001/navigation2_tutorials_gps_humble)](https://github.com/luispri2001/navigation2_tutorials_gps_humble/issues) [![GitHub pull requests](https://img.shields.io/github/issues-pr/luispri2001/navigation2_tutorials_gps_humble)](https://github.com/luispri2001/navigation2_tutorials_gps_humble/pulls) [![Contributors](https://img.shields.io/github/contributors/luispri2001/navigation2_tutorials_gps_humble.svg)](https://github.com/luispri2001/navigation2_tutorials_gps_humble/graphs/contributors)
 
-![Build Status](https://github.com/luispri2001/navigation2_tutorials_gps_humble/actions/workflows/main.yml/badge.svg?branch=humble)
+## Tested systems and ROS2 distro
+|systems|ROS2 distro|Build status
+|--|--|--|
+|Ubuntu 22.04|humble|![Build Status](https://github.com/luispri2001/navigation2_tutorials_gps_humble/actions/workflows/main.yml/badge.svg?branch=humble)
+
+
 
 This repository is a fork of the original [navigation2_tutorials](https://github.com/ros-planning/navigation2_tutorials) repository, with modifications to ensure compatibility with ROS 2 Humble.
 
