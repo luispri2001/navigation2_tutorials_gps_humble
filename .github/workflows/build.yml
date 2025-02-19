@@ -1,36 +1,23 @@
-name: Build and Test
+name: Humble Docker Build
 
 on:
   push:
-    branches:
-      - main
   pull_request:
-    branches:
-      - main
+  schedule:
+    - cron: "0 5 * * 1"
 
 jobs:
-  build:
+  humble_docker_build:
     runs-on: ubuntu-latest
-    container: ros:humble
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      - name: Setup ROS 2 environment
-        run: |
-          apt update && apt install -y python3-colcon-common-extensions
-          source /opt/ros/humble/setup.bash
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
 
-      - name: Build workspace
-        run: |
-          mkdir -p ~/ros2_ws/src
-          cp -r . ~/ros2_ws/src/
-          cd ~/ros2_ws
-          colcon build --symlink-install
-
-      - name: Run tests
-        run: |
-          cd ~/ros2_ws
-          colcon test --event-handlers console_cohesion+
-          colcon test-result --verbose
+      - name: Build docker
+        uses: docker/build-push-action@v6
+        with:
+          build-args: ROS_DISTRO=humble
+          push: false
