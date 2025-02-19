@@ -31,7 +31,7 @@ def generate_launch_description():
         "nav2_gps_waypoint_follower_demo")
     launch_dir = os.path.join(gps_wpf_dir, 'launch')
     params_dir = os.path.join(gps_wpf_dir, "config")
-    nav2_params = os.path.join(params_dir, "go2_nav2_no_map_params.yaml")
+    nav2_params = os.path.join(params_dir, "nav2_no_map_params.yaml")
     configured_params = RewrittenYaml(
         source_file=nav2_params, root_key="", param_rewrites="", convert_types=True
     )
