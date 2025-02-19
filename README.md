@@ -5,7 +5,7 @@
 ## Tested systems and ROS2 distro
 |systems|ROS2 distro|Build status|
 |--|--|--|
-|Ubuntu 22.04|humble|![Build Status](https://github.com/luispri2001/navigation2_tutorials_gps_humble/actions/workflows/main.yml/badge.svg?branch=humble)
+|Ubuntu 22.04|humble|![Build Status](https://github.com/luispri2001/navigation2_tutorials_gps_humble/actions/workflows/main.yml/badge.svg?branch=Go2)
 
 This repository is a fork of the original [navigation2_tutorials](https://github.com/ros-planning/navigation2_tutorials) repository, with modifications to ensure compatibility with ROS 2 Humble.
 
