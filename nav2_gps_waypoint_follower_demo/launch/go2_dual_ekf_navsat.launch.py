@@ -9,7 +9,9 @@ import launch.actions
 
 def generate_launch_description():
     gps_wpf_dir = get_package_share_directory("nav2_gps_waypoint_follower_demo")
-    rl_params_file = os.path.join(gps_wpf_dir, "config", "go2_dual_ekf_navsat_params.yaml")
+    rl_params_file = os.path.join(
+        gps_wpf_dir, "config", "go2_dual_ekf_navsat_params.yaml"
+    )
 
     return LaunchDescription(
         [
@@ -25,9 +27,7 @@ def generate_launch_description():
                 name="ekf_filter_node_odom",
                 output="screen",
                 parameters=[rl_params_file, {"use_sim_time": False}],
-                remappings=[
-                    ("odometry/filtered", "odometry/local")
-                ],
+                remappings=[("odometry/filtered", "odometry/local")],
             ),
             launch_ros.actions.Node(
                 package="robot_localization",
@@ -35,9 +35,7 @@ def generate_launch_description():
                 name="ekf_filter_node_map",
                 output="screen",
                 parameters=[rl_params_file, {"use_sim_time": False}],
-                remappings=[
-                    ("odometry/filtered", "odometry/global")
-                ],
+                remappings=[("odometry/filtered", "odometry/global")],
             ),
             launch_ros.actions.Node(
                 package="robot_localization",
@@ -48,7 +46,7 @@ def generate_launch_description():
                 remappings=[
                     ("imu/data", "imu/data"),
                     ("gps/fix", "fix"),
-                    ("gps/filtered", "gps/filtered"),  
+                    ("gps/filtered", "gps/filtered"),
                     ("odometry/gps", "odometry/gps"),
                     ("odometry/filtered", "odometry/global"),
                 ],
