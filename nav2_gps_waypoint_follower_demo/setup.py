@@ -4,20 +4,38 @@ from glob import glob
 
 package_name = 'nav2_gps_waypoint_follower_demo'
 
+# Se copian todos los archivos de models/n1, excepto la carpeta "meshes"
+n1_files = [f for f in glob('models/n1/*') if os.path.basename(f) != 'meshes']
+
+# Se obtienen los archivos de la carpeta "meshes" dentro de models/n1
+meshes_files_n1 = glob('models/n1/meshes/*')
+
+# Se copian todos los archivos de models/turtlebot_waffle_gps, excepto la carpeta "meshes"
+turtlebot_files = [f for f in glob('models/turtlebot_waffle_gps/*') if os.path.basename(f) != 'meshes']
+
+# Se obtienen los archivos de la carpeta "meshes" dentro de models/turtlebot_waffle_gps
+meshes_files_turtlebot = glob('models/turtlebot_waffle_gps/meshes/*')
+
 setup(
     name=package_name,
     version='0.0.1',
     packages=find_packages(exclude=['test']),
     data_files=[
         ('share/ament_index/resource_index/packages',
-            ['resource/' + package_name]),
+         ['resource/' + package_name]),
         ('share/' + package_name, ['package.xml']),
         (os.path.join('share', package_name, 'launch'), glob('launch/*.launch.py')),
         (os.path.join('share', package_name, 'config'), glob('config/*')),
         (os.path.join('share', package_name, 'urdf'), glob('urdf/*')),
         (os.path.join('share', package_name, 'worlds'), glob('worlds/*')),
         (os.path.join('share', package_name, 'models/turtlebot_waffle_gps'),
-         glob('models/turtlebot_waffle_gps/*')),
+         turtlebot_files),
+        # Copiamos models/n1 sin la carpeta "meshes"
+        (os.path.join('share', package_name, 'models/n1'), n1_files),
+        # Copiamos la carpeta "meshes" de n1 en otra ubicación: share/<package_name>/models/meshes
+        (os.path.join('share', package_name, 'models/n1/meshes'), meshes_files_n1),
+        # Copiamos la carpeta "meshes" de turtlebot_waffle_gps en otra ubicación: share/<package_name>/models/meshes
+        (os.path.join('share', package_name, 'models/turtlebot_waffle_gps/meshes'), meshes_files_turtlebot),
     ],
     install_requires=['setuptools'],
     zip_safe=True,

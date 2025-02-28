@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<sdf version="1.4">
+  <world name="default">
+   
+    <plugin name="gazebo_ros_state" filename="libgazebo_ros_state.so">
+      <update_rate>1.0</update_rate>
+    </plugin>
+
+    <light name="sun" type="directional">
+      <pose>0 0 10 0 0 0</pose>
+      <diffuse>1 1 1 1</diffuse>
+      <specular>1 1 1 1</specular>
+      <attenuation>
+        <range>1000</range>
+        <constant>1</constant>
+        <linear>0</linear>
+        <quadratic>0</quadratic>
+      </attenuation>
+    </light>
+
+    <physics type="ode">
+      <max_step_size>0.001</max_step_size>
+      <gravity>0 0 -1.62</gravity>     <!-- Moon Gravity -->
+      <!-- <magnetic_field>6e-06 2.3e-05 -4.2e-05</magnetic_field> -->
+      <atmosphere type="adiabatic"/>  
+    </physics>
+    
+    <include>
+      <uri>model://f1</uri>
+    </include>
+
+  </world>
+</sdf>
