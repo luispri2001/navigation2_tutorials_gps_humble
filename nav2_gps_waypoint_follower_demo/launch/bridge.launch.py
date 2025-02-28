@@ -12,7 +12,7 @@ def generate_launch_description():
         parameters=[{'use_sim_time': use_sim_time}],
         arguments=[
             # Comando de velocidad (ROS 2 -> Ignition)
-            '/cmd_vel@geometry_msgs/msg/Twist[ignition.msgs.Twist',
+            '/cmd_vel@geometry_msgs/msg/Twist]ignition.msgs.Twist',
             # Odometría (Ignition -> ROS 2)
             '/odom@nav_msgs/msg/Odometry[ignition.msgs.Odometry',
             # TF (Ignition -> ROS 2)
