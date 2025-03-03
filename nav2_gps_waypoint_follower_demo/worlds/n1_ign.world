@@ -32,7 +32,7 @@
     <!-- Incluir y spawnear el robot -->
     <include>
       <uri>model://turtlebot_waffle_gps/model_ign.sdf</uri>
-      <pose>-137 -21 6 0 0 0</pose>
+      <pose>-137 -21 5.5 0 0 1.57</pose>
     </include>
 
     <!-- Coordenadas GPS del mundo -->
@@ -41,7 +41,7 @@
       <surface_model>EARTH_WGS84</surface_model>
       <latitude_deg>42.61458</latitude_deg>  <!-- Latitud en grados decimales -->
       <longitude_deg>-5.5638</longitude_deg>  <!-- Longitud en grados decimales -->
-      <elevation>980.0</elevation>  <!-- Elevación en metros -->
+      <elevation>880.0</elevation>  <!-- Elevación en metros -->
       <heading_deg>270</heading_deg>  <!-- Dirección de la orientación del mapa (0 norte, 90 este, 180 sur, 270 oeste) -->
     </spherical_coordinates>
 
