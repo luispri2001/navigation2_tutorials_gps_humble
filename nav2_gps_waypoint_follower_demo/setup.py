@@ -10,6 +10,24 @@ n1_files = [f for f in glob('models/n1/*') if os.path.basename(f) != 'meshes']
 # Se obtienen los archivos de la carpeta "meshes" dentro de models/n1
 meshes_files_n1 = glob('models/n1/meshes/*')
 
+# Se copian todos los archivos de models/n1, excepto la carpeta "meshes"
+n2_files = [f for f in glob('models/n2/*') if os.path.basename(f) != 'meshes']
+
+# Se obtienen los archivos de la carpeta "meshes" dentro de models/n1
+meshes_files_n2 = glob('models/n2/meshes/*')
+
+# Se copian todos los archivos de models/n1, excepto la carpeta "meshes"
+nn1_files = [f for f in glob('models/nn1/*') if os.path.basename(f) != 'meshes']
+
+# Se obtienen los archivos de la carpeta "meshes" dentro de models/n1
+meshes_files_nn1 = glob('models/nn1/meshes/*')
+
+# Se copian todos los archivos de models/n1, excepto la carpeta "meshes"
+campusReducido_files = [f for f in glob('models/campusReducido/*') if os.path.basename(f) != 'meshes']
+
+# Se obtienen los archivos de la carpeta "meshes" dentro de models/n1
+meshes_files_campusReducido = glob('models/campusReducido/meshes/*')
+
 # Se copian todos los archivos de models/turtlebot_waffle_gps, excepto la carpeta "meshes"
 turtlebot_files = [f for f in glob('models/turtlebot_waffle_gps/*') if os.path.basename(f) != 'meshes']
 
@@ -34,6 +52,18 @@ setup(
         (os.path.join('share', package_name, 'models/n1'), n1_files),
         # Copiamos la carpeta "meshes" de n1 en otra ubicación: share/<package_name>/models/meshes
         (os.path.join('share', package_name, 'models/n1/meshes'), meshes_files_n1),
+        # Copiamos models/n1 sin la carpeta "meshes"
+        (os.path.join('share', package_name, 'models/n2'), n2_files),
+        # Copiamos la carpeta "meshes" de n1 en otra ubicación: share/<package_name>/models/meshes
+        (os.path.join('share', package_name, 'models/n2/meshes'), meshes_files_n2),
+        # Copiamos models/n1 sin la carpeta "meshes"
+        (os.path.join('share', package_name, 'models/nn1'), nn1_files),
+        # Copiamos la carpeta "meshes" de n1 en otra ubicación: share/<package_name>/models/meshes
+        (os.path.join('share', package_name, 'models/nn1/meshes'), meshes_files_nn1),
+        # Copiamos models/n1 sin la carpeta "meshes"
+        (os.path.join('share', package_name, 'models/campusReducido'), campusReducido_files),
+        # Copiamos la carpeta "meshes" de n1 en otra ubicación: share/<package_name>/models/meshes
+        (os.path.join('share', package_name, 'models/campusReducido/meshes'), meshes_files_campusReducido),
         # Copiamos la carpeta "meshes" de turtlebot_waffle_gps en otra ubicación: share/<package_name>/models/meshes
         (os.path.join('share', package_name, 'models/turtlebot_waffle_gps/meshes'), meshes_files_turtlebot),
     ],
